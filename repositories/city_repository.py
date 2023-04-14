@@ -5,11 +5,22 @@ import repositories.country_repository as country_repository
 
 def save(city):
     sql = "INSERT INTO cities (name, country_id, visited) VALUES (%s, %s, %s) RETURNING *"
-    values = [city.name, city.country.id, city.completed]
+    values = [city.name, city.country.id, city.visited]
     results = run_sql(sql, values)
     id = results[0]['id']
     city.id = id
     return city
+
+def select_all():
+    cities = []
+    sql = "SELECT * FROM cities"
+    results = run_sql(sql)
+
+    for row in results:
+        country = country_repository.select(row['country_id'])
+        city = City(row['name'], country, row['visited'])
+        cities.append(city)
+    return cities
 
 def delete_all():
     sql = "DELETE FROM cities"

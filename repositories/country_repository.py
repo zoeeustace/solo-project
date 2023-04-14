@@ -11,6 +11,28 @@ def save(country):
     country.id = id
     return country
 
+def select(id):
+    country = None
+    sql = "SELECT * FROM countries WHERE id = %s"
+    values = [id]
+    result = run_sql(sql, values)[0]
+
+    if result is not None:
+        country = Country(result['name'], result['continent'], result['id'])
+    return country
+
+
+def select_all():
+    countries = []
+
+    sql = "SELECT * FROM countries"
+    results = run_sql(sql)
+
+    for row in results:
+        country = Country(row['name'], row['continent'])
+        countries.append(country)
+    return countries
+
 def delete_all():
     sql = "DELETE FROM countries"
     run_sql(sql)
