@@ -7,20 +7,16 @@ class TestCity(unittest.TestCase):
         self.city = City("Sydney", "Australia", True)
     
     
-    # def test_album_has_title(self):
-    #     self.assertEqual("Wonderland", self.album.title)
+    def test_city_has_name(self):
+        self.assertEqual("Sydney", self.city.name)
         
         
-    # def test_album_has_genre(self):
-    #     self.assertEqual("pop", self.album.genre)
+    def test_city_has_country_attached(self):
+        self.assertEqual("Australia", self.city.country)
        
-        
-    # def test_album_has_artist(self):
-    #     self.assertEqual("McFly", self.album.artist)
     
-    
-    # def test_task_completed_starts_false(self):
-    #     self.assertEqual(False, self.task.completed)
+    def test_city_visited_true(self):
+        self.assertEqual(True, self.city.visited)
         
     
     # def test_can_mark_test_complete(self):

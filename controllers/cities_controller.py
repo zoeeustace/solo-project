@@ -9,10 +9,14 @@ cities_blueprint = Blueprint("cities", __name__)
 @cities_blueprint.route("/my-list")
 def my_list():
     all_cities = city_repository.select_all()
-    return render_template("cities/index.html", all_cities=all_cities)
+    return render_template("my-list/index.html", all_cities=all_cities)
 
 # NEW
 # GET /my-list/new
+@cities_blueprint.route("/my-list/new")
+def add():
+    countries = country_repository.select_all()
+    return render_template("my-list/new")
 
 # CREATE
 # POST /my-list

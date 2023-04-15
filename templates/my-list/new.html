@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+        <form action="/my-list" method="post">
+            <div>
+            <label for="country">Country:</label>
+            <input type="text" id="country" name="country" placeholder="Country" required autofocus>
+            </div>
+        
+            <div>
+            <label for="city">City:</label>
+            <input type="text" id="city" name="city" placeholder="City" required>
+            </div>
+    
+        
+            <div>
+            <label for="continent">Continent:</label>
+            <select id="author" name="author_id">
+                {% for author in all_authors  %}
+                    <option value="{{ author.id }}"> {{ author.name }}</option>
+                {% endfor %}
+            </select>
+            </div>
+        
+            <button type="submit">Add Task</button>
+        
+        </form>
+
+  {% endblock %}
