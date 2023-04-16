@@ -30,10 +30,7 @@ def create_city():
     city=City(name, country, visited)
     city_repository.save(city)
     return redirect("/my-list")
-
-
-
-                        
+       
 
 # SHOW
 # GET /my-list/<id>

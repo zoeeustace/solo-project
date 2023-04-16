@@ -47,14 +47,14 @@ body {
     margin-right: 0.3em;
   }
 
-  .buttons {
+.buttons {
     margin-top: 10px;
     margin-left: 2px;
     font-size: 1.4em;
     color: #aab8c2;
   }
 
-  .trash-button{
+.trash-button{
     display: contents;
     font-size: 55%;
   }
