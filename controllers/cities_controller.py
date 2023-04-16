@@ -1,4 +1,5 @@
-from flask import Blueprint, render_template
+from os import name
+from flask import Blueprint, render_template, request, redirect
 from repositories import city_repository, country_repository
 from models.city import City
 
@@ -16,13 +17,30 @@ def my_list():
 @cities_blueprint.route("/my-list/new")
 def add():
     countries = country_repository.select_all()
-    return render_template("my-list/new")
+    return render_template("my-list/new.html")
 
 # CREATE
 # POST /my-list
+@cities_blueprint.route("/my-list", methods=["POST"])
+def create_city():
+    name = request.form['name']
+    country_id = request.form['country_id']
+    visited = request.form['visited']
+    country=country_repository.select(country_id)
+    city=City(name, country, visited)
+    city_repository.save(city)
+    return redirect("/my-list")
+
+
+
+                        
 
 # SHOW
 # GET /my-list/<id>
+@cities_blueprint.route("/my-list/<id>")
+def show_city(id):
+    city=city_repository.select(id)
+    return render_template("my-list/show.html", city=city)
 
 # EDIT
 # GET /my-list/<id>/edit
