@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+
+<form action="/my-list/{{city.id}}" method="post">
+
+
+  <div>
+    <label for="city">City:</label>
+    <input type="text" id="city" name="city" value="{{city.name}}" required>
+  </div>
+
+  <div>
+    <label for="continent">Continent:</label>
+    <input type="text" id="continent" name="continent" value="{{city.country.continent}}" required autofocus>
+  </div>
+
+  <div>
+    <label for="country">Country:</label>
+    <select id="country" name="country_id">
+      {% for country in all_countries %}
+        <option value="{{country.id }}"
+          {% if city.country.id== country.id %} selected="selected"{% endif %}>
+          {{ country.name }}
+        </option>
+      {% endfor %}
+    </select>
+  </div>
+
+  <button type="submit">Update Task</button>
+
+</form>
+
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+    
+<div>
+    <p>{{city.name}}</p>
+    <br>
+    <p>{{city.country.name}}</p>
+    <p>Visited: {{city.visited}}</p>
+    <p><a href="/my-list/{{city.id}}/edit">Edit</a></p>
+  </div>
+
+{% endblock content %}
+

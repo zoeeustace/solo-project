@@ -20,5 +20,7 @@ city_repository.save(city_1)
 city_2 = City("Lisbon", country_2, False)
 city_repository.save(city_2)
 
+city_3 = City("Melbourne", country_1, True)
+city_repository.save(city_3)
 
 pdb.set_trace()
