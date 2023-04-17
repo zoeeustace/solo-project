@@ -2,6 +2,8 @@ from os import name
 from flask import Blueprint, render_template, request, redirect
 from repositories import city_repository, country_repository
 from models.city import City
+from models.country import Country
+import pdb
 
 cities_blueprint = Blueprint("cities", __name__)
 
@@ -12,25 +14,47 @@ def my_list():
     all_cities = city_repository.select_all()
     return render_template("my-list/index.html", all_cities=all_cities)
 
-# NEW
-# GET /my-list/new
+# # NEW CITY
+# # GET /my-list/new
 @cities_blueprint.route("/my-list/new")
 def add():
     cities = city_repository.select_all()
-    return render_template("my-list/new.html", all_cities=cities)
+    countries = country_repository.select_all()
+    return render_template("my-list/new.html", all_cities=cities, all_countries=countries)
+
+# NEW COUNTRY
+# GET /my-list/new-country
+@cities_blueprint.route("/my-list/new-country")
+def add_country():
+    countries = country_repository.select_all()
+    return render_template("my-list/new-country.html", all_countries=countries)
+
 
 # CREATE
-# POST /my-list
+# POST /my-list/countries
 @cities_blueprint.route("/my-list", methods=["POST"])
+def create_country():
+    name = request.form['country_id']
+    # continent = request.form['continent']
+    country = Country(name)
+    country_repository.save(country)
+    return redirect("/my-list/new-country")
+
+
+
+# # CREATE
+# # POST /my-list
+@cities_blueprint.route("/mylist", methods=["POST"])
 def create_city():
     name = request.form['city']
     country_id = request.form['country_id']
     visited = request.form['visited']
-    country=country_repository.select(country_id)
+    country = country_repository.select(country_id)
     city=City(name, country, visited)
     city_repository.save(city)
+    # all_cities = city_repository.select_all()
+    # return render_template("my-list/index.html", all_cities=all_cities)
     return redirect("/my-list")
-       
 
 # SHOW
 # GET /my-list/<id>
@@ -62,3 +86,14 @@ def update_list(id):
 
 # DELETE
 # DELETE (POST) /my-list/<id>/delete
+@cities_blueprint.route("/my-list/<id>/delete", methods=["POST"])
+def delete_city(id):
+    city_repository.delete(id)
+    return redirect("/my-list")
+
+# DELETE
+# DELETE (POST) /my-list/<id>/delete
+@cities_blueprint.route("/my-list/<id>/delete", methods=["POST"])
+def delete_country(id):
+    country_repository.delete(id)
+    return redirect("/my-list/new-country")

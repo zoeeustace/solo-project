@@ -2,11 +2,11 @@ from db.run_sql import run_sql
 
 from models.country import Country
 from models.city import City
-from repositories import city_repository
+
 
 def save(country):
-    sql = "INSERT INTO countries (name, continent) VALUES (%s, %s) RETURNING *"
-    values = [country.name, country.continent]
+    sql = "INSERT INTO countries (name) VALUES (%s) RETURNING *"
+    values = [country.name]
     results = run_sql(sql, values)
     id = results[0]['id']
     country.id = id
@@ -16,10 +16,11 @@ def select(id):
     country = None
     sql = "SELECT * FROM countries WHERE id = %s"
     values = [id]
-    result = run_sql(sql, values)[0]
+    results = run_sql(sql, values)
 
-    if result is not None:
-        country = Country(result['name'], result['continent'], result['id'])
+    if results:
+        result = results[0]
+        country = Country(result['name'], result['id'])
     return country
 
 
@@ -30,10 +31,15 @@ def select_all():
     results = run_sql(sql)
 
     for row in results:
-        country = Country(row['name'], row['continent'], row['id'])
+        country = Country(row['name'], row['id'])
         countries.append(country)
     return countries
 
 def delete_all():
     sql = "DELETE FROM countries"
     run_sql(sql)
+
+def delete(id):
+    sql = "DELETE  FROM countries WHERE id = %s"
+    values = [id]
+    run_sql(sql, values)

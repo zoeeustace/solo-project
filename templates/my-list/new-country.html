@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+        <form action="/my-list" method="post">
+            <div>
+            <label for="country">Country:</label>
+            <input type="text" id="country" name="country_id" placeholder="Country" required autofocus>
+            </div>
+
+            <button type="submit">Add Country</button>
+        </form>
+
+        {% for country in all_countries %}
+            <div class="countries">
+                {{ country.name }}
+            </div>
+            <div class="buttons">
+                <form class="delete-form" action="/my-list/{{ country.id }}/delete" method="POST">
+                    <button class="trash-button">
+                        <i class="fa fa-close fa-3x" style="color: red" aria-hidden="true"></i>
+                    </button>
+                </form>
+            </div>
+        {% endfor %}
+
+  {% endblock %}

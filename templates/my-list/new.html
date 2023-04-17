@@ -1,22 +1,27 @@
 {% extends 'base.html' %}
 
 {% block content %}
-        <form action="/my-list" method="post">
-            <div>
-            <label for="country">Country:</label>
-            <input type="text" id="country" name="country_id" placeholder="Country" required autofocus>
-            </div>
-        
-            <div>
-            <label for="city">City:</label>
-            <input type="text" id="city" name="city" placeholder="City" required>
-            </div>
+        <form action="/mylist" method="post">
             
             <div>
-            <label for="continent">Continent:</label>
-            <input type="text" id="continent" name="continent" placeholder="Continent" required>
+                <label for="city">City:</label>
+                <input type="text" id="city" name="city" placeholder="City" required>
             </div>
-    
+                
+
+            <div>
+                <label for="country">Country:</label>
+                <select id="country" name="country_id">
+                  {% for country in all_countries %}
+                    <option value="{{country.id}}"
+                      {% if country.id == country.id %} selected = "selected" {% endif %}>
+                      {{ country.name }}
+                    </option>
+                  {% endfor %}
+                </select>
+            </div>
+            
+        
             <div>
             <label for="visited">Visited:</label>
             <select id="visited" name="visited">
@@ -29,4 +34,4 @@
         
         </form>
 
-  {% endblock %}
+{% endblock %}
