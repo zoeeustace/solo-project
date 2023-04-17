@@ -36,7 +36,13 @@ def add_country():
 def create_country():
     name = request.form['country_id']
     country = Country(name)
-    country_repository.save(country)
+    all_countries = country_repository.select_all()
+    found = False
+    for countryElement in all_countries:
+        if countryElement.name == country.name:
+            found = True
+    if found == False:
+        country_repository.save(country)
     return redirect("/my-list/new-country")
 
 
@@ -50,9 +56,13 @@ def create_city():
     visited = request.form['visited']
     country = country_repository.select(country_id)
     city=City(name, country, visited)
-    city_repository.save(city)
-    # all_cities = city_repository.select_all()
-    # return render_template("my-list/index.html", all_cities=all_cities)
+    all_cities = city_repository.select_all()
+    found = False
+    for cityElement in all_cities:
+        if cityElement.name == city.name:
+            found = True
+    if found == False:
+        city_repository.save(city)
     return redirect("/my-list")
 
 # SHOW
