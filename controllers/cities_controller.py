@@ -7,6 +7,9 @@ import pdb
 
 cities_blueprint = Blueprint("cities", __name__)
 
+
+
+
 #INDEX
 # GET /my-list
 @cities_blueprint.route("/my-list")
@@ -14,13 +17,7 @@ def my_list():
     all_cities = city_repository.select_all()
     return render_template("my-list/index.html", all_cities=all_cities)
 
-# # NEW CITY
-# # GET /my-list/new
-@cities_blueprint.route("/my-list/new")
-def add():
-    cities = city_repository.select_all()
-    countries = country_repository.select_all()
-    return render_template("my-list/new.html", all_cities=cities, all_countries=countries)
+# countries
 
 # NEW COUNTRY
 # GET /my-list/new-country
@@ -45,6 +42,39 @@ def create_country():
         country_repository.save(country)
     return redirect("/my-list/new-country")
 
+# EDIT
+@cities_blueprint.route("/my-list/<id>/edit-country")
+def edit_country(id):
+    country=country_repository.select(id)
+    return render_template("my-list/edit-country.html", country=country)    
+
+
+# UPDATE
+@cities_blueprint.route("/my-list/<id>/update",methods=["POST"])
+def update_country(id):
+    name=request.form['country_id']
+    country=Country(name, id)
+    country_repository.update(country)
+    return redirect("/my-list/new-country")
+
+
+# DELETE
+# DELETE (POST) /my-list/<id>/delete
+@cities_blueprint.route("/my-list/<id>/delete-country", methods=["POST"])
+def delete_country(id):
+    country_repository.delete(id)
+    return redirect("/my-list")
+
+
+# cities
+
+# # NEW CITY
+# # GET /my-list/new
+@cities_blueprint.route("/my-list/new")
+def add():
+    cities = city_repository.select_all()
+    countries = country_repository.select_all()
+    return render_template("my-list/new.html", all_cities=cities, all_countries=countries)
 
 
 # # CREATE
@@ -80,10 +110,6 @@ def edit_city(id):
     countries=country_repository.select_all()
     return render_template("my-list/edit.html", city=city, all_countries=countries)
 
-@cities_blueprint.route("/my-list/<id>/edit-country")
-def edit_country(id):
-    country=country_repository.select(id)
-    return render_template("my-list/edit-country.html", country=country)    
 
 # UPDATE
 # PUT (POST) /my-list/<id>
@@ -97,12 +123,6 @@ def update_list(id):
     city_repository.update(city)
     return redirect("/my-list")
 
-@cities_blueprint.route("/my-list/<id>/update",methods=["POST"])
-def update_country(id):
-    name=request.form['country_id']
-    country=Country(name, id)
-    country_repository.update(country)
-    return redirect("/my-list/new-country")
 
 # DELETE
 # DELETE (POST) /my-list/<id>/delete
@@ -111,9 +131,5 @@ def delete_city(id):
     city_repository.delete(id)
     return redirect("/my-list")
 
-# DELETE
-# DELETE (POST) /my-list/<id>/delete
-@cities_blueprint.route("/my-list/<id>/delete-country", methods=["POST"])
-def delete_country(id):
-    country_repository.delete(id)
-    return redirect("/my-list")
+# sights
+

@@ -1,0 +1,14 @@
+.buttons {
+    margin-top: 10px;
+    margin-left: 2px;
+    font-size: 1.4em;
+    color: #aab8c2;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+
+.trash-button{
+    display: contents;
+    font-size: 55%;
+  }

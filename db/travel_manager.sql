@@ -1,3 +1,4 @@
+DOP TABLE IF EXISTS sights;
 DROP TABLE IF EXISTS cities;
 DROP TABLE IF EXISTS countries;
 
@@ -12,3 +13,10 @@ CREATE TABLE cities (
   visited BOOLEAN,
   country_id INT NOT NULL REFERENCES countries(id) ON DELETE CASCADE
 );
+
+CREATE TABLE sights (
+  id SERIAL PRIMARY KEY,
+  event VARCHAR(255),
+  review TEXT,
+  city_id INT NOT NULL REFERENCES cities(id) ON DELETE CASCADE
+)
