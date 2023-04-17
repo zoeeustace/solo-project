@@ -35,7 +35,6 @@ def add_country():
 @cities_blueprint.route("/my-list", methods=["POST"])
 def create_country():
     name = request.form['country_id']
-    # continent = request.form['continent']
     country = Country(name)
     country_repository.save(country)
     return redirect("/my-list/new-country")
@@ -93,7 +92,7 @@ def delete_city(id):
 
 # DELETE
 # DELETE (POST) /my-list/<id>/delete
-@cities_blueprint.route("/my-list/<id>/delete", methods=["POST"])
+@cities_blueprint.route("/my-list/<id>/delete-country", methods=["POST"])
 def delete_country(id):
     country_repository.delete(id)
-    return redirect("/my-list/new-country")
+    return redirect("/my-list")

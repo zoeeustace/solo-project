@@ -15,11 +15,12 @@
                 {{ country.name }}
             </div>
             <div class="buttons">
-                <form class="delete-form" action="/my-list/{{ country.id }}/delete" method="POST">
+                <form class="delete-form" action="/my-list/{{ country.id }}/delete-country" method="POST">
                     <button class="trash-button">
-                        <i class="fa fa-close fa-3x" style="color: red" aria-hidden="true"></i>
+                        <i class="fa fa-close fa-1x" style="color: red" aria-hidden="true"></i>
                     </button>
                 </form>
+                <p><a href="/my-list/{{country.id}}/edit-country">Edit</a></p>
             </div>
         {% endfor %}
 
