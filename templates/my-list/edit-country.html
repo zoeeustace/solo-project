@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 
-<form action="/my-list/{{country.id}}" method="post">
+<form action="/my-list/{{country.id}}/update" method="post">
     <div>
     <label for="country">Country:</label>
     <input type="text" id="country" name="country_id" placeholder="Country" required autofocus>
