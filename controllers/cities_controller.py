@@ -173,7 +173,7 @@ def create_sight():
     sight=Sight(event, review, city)
     all_sights = sight_repository.select_all()
     sight_repository.save(sight)
-    return redirect("/my-list")
+    return redirect(request.referrer)
 
 # # EDIT
 # # GET
