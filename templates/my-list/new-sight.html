@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+        <form action="/my-list/add" method="post" class="form">
+            
+            <div>
+                <label for="event">Event:</label>
+                <input type="text" id="event" name="event" placeholder="Event" required>
+            </div>
+                
+
+            <div>
+                <label for="review">Review:</label>
+                <input type="text" id="review" name="review" placeholder="Review"></input>
+            </div>
+            
+        
+            <button type="submit">Add Destination</button>
+        
+        </form>
+
+{% endblock %}

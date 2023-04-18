@@ -148,22 +148,49 @@ def delete_city(id):
 
 # sights
 
-# EDIT
-# GET
-@cities_blueprint.route("/my-list/<id>/sights/edit")
-def edit_sight(id):
-    sight=sight_repository.select(id)
-    cities=city_repository.select_all
-    return render_template("my-list/edit-sights.html", sight=sight, all_cities=cities)  
+# # NEW SIGHT
+# # GET /my-list/add
+@cities_blueprint.route("/my-list/new/sight")
+def add_sight():
+    sights = sight_repository.select_all()
+    cities = city_repository.select_all()
+    return render_template("my-list/new-sight.html", all_sights=sights, all_cities=cities)
 
-# UPDATE
-# PUT (POST) /my-list/<id>
-@cities_blueprint.route("/my-list/<id>/sights/update",methods=["POST"])
-def update_sight(id):
-    event=request.form['event']
-    review=request.form['review']
-    city_id=request.form['city_id']
-    city=city_repository.select(city_id)
-    sight=Sight(event, review, city, id)
-    city_repository.update(city)
-    return redirect("/my-list/<id>")
+
+# # CREATE
+# # POST /my-list
+@cities_blueprint.route("/my-list/add", methods=["POST"])
+def create_sight():
+    event = request.form['event']
+    city_id = request.form['city_id']
+    review = request.form['review']
+    city = city_repository.select(city_id)
+    sight=Sight(event, review, city)
+    all_sights = sight_repository.select_all()
+    found = False
+    for sightElement in all_sights:
+        if sightElement.event == sight.event:
+            found = True
+    if found == False:
+        sight_repository.save(sight)
+    return redirect("/my-list")
+
+# # EDIT
+# # GET
+# @cities_blueprint.route("/my-list/<id>/sights/edit")
+# def edit_sight(id):
+#     sights=sight_repository.select(id)
+#     cities=city_repository.select_all
+#     return render_template("my-list/edit-sights.html", all_sights=sights, all_cities=cities)  
+
+# # UPDATE
+# # PUT (POST) /my-list/<id>
+# @cities_blueprint.route("/my-list/update/<id>",methods=["POST"])
+# def update_sight(id):
+#     event=request.form['event']
+#     review=request.form['review']
+#     city_id=request.form['city_id']
+#     city=city_repository.select(city_id)
+#     sight=Sight(event, review, city, id)
+#     city_repository.update(city)
+#     return redirect("/my-list/<id>")

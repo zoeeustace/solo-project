@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 
-<form action="/my-list/{{sight.id}}/sights/update" method="post">
+<form action="/my-list/update/{{sight.id}}" method="post">
 
 
   <div>
@@ -12,10 +12,6 @@
   <div>
     <label for="review">Review:</label>
     <input type="text" id="review" name="review" value="{{sight.review}}" required>
-  </div>
-
-  <div id="city_id" name="city_id">
-    <p>City: {{sight.city.name}}</p>
   </div>
 
   <button type="submit">Update Things To Do</button>

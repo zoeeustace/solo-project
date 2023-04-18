@@ -6,15 +6,23 @@
     <br>
     <p>{{city.country.name}}</p>
     <p>Visited: {{city.visited}}</p>
-    {% for sight in sights %}
-      {% if city.id == city.id %}
-        <li>Event: {{sight.event}}</li>
-        <li>Review: {{sight.review}}</li>
-      {% endif %}
-    {% endfor %}
     <p><a href="/my-list/{{city.id}}/edit">Edit</a></p>
-    <p><a href="/my-list/{{city.id}}/sights/edit">Add Sights</a></p>
-  </div>
+        {% for sight in all_sights %}
+            <div class="sights">
+                Event: {{ sight.event }}
+                Review: {{ sight.review }}
+            </div>
+            <div class="buttons">
+                <form class="delete-form" action="/my-list/{{ sight.id }}/delete-sight" method="POST">
+                    <button class="trash-button">
+                        <i class="fa fa-close fa-1x" style="color: red" aria-hidden="true"></i>
+                    </button>
+                </form>
+                <p><a href="/my-list/{{sight.id}}/edit">Edit</a></p>
+            </div>
+        {% endfor %}
+    <p><a href="/my-list/new/sight">Add Sights</a></p>
+</div>
 
 {% endblock content %}
 
