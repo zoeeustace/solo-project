@@ -1,0 +1,8 @@
+    <form class="form-inline" action="/my-list/{{city.id}}/visited">
+        <label for="visited">Filter by:</label>
+        <select name="visited" id="visitedFilter">
+            <option value="visited">Visited</option>
+            <option value="not-visited">Not Visited</option>
+        </select>
+        <button type="submit">Filter</button>
+    </form>

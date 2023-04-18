@@ -1,8 +1,9 @@
 from os import name
 from flask import Blueprint, render_template, request, redirect
-from repositories import city_repository, country_repository
+from repositories import city_repository, country_repository, sight_repository
 from models.city import City
 from models.country import Country
+from models.sight import Sight
 import pdb
 
 cities_blueprint = Blueprint("cities", __name__)
@@ -102,6 +103,20 @@ def show_city(id):
     city=city_repository.select(id)
     return render_template("my-list/show.html", city=city)
 
+# # SHOW
+# # GET /my-list/<id>/visited
+# @cities_blueprint.route("/my-list/<id>")
+# def show_visited():
+#     city=city_repository.select_all()
+#     return render_template("my-list/visited.html", city=city)
+
+# # SHOW
+# # GET /my-list/<id>/not-visited
+# @cities_blueprint.route("/my-list/<id>")
+# def show_not_visited():
+#     city=city_repository.select(id)
+#     return render_template("my-list/show.html", city=city)
+
 # EDIT
 # GET /my-list/<id>/edit
 @cities_blueprint.route("/my-list/<id>/edit")
@@ -133,3 +148,22 @@ def delete_city(id):
 
 # sights
 
+# EDIT
+# GET
+@cities_blueprint.route("/my-list/<id>/sights/edit")
+def edit_sight(id):
+    sight=sight_repository.select(id)
+    cities=city_repository.select_all
+    return render_template("my-list/edit-sights.html", sight=sight, all_cities=cities)  
+
+# UPDATE
+# PUT (POST) /my-list/<id>
+@cities_blueprint.route("/my-list/<id>/sights/update",methods=["POST"])
+def update_sight(id):
+    event=request.form['event']
+    review=request.form['review']
+    city_id=request.form['city_id']
+    city=city_repository.select(city_id)
+    sight=Sight(event, review, city, id)
+    city_repository.update(city)
+    return redirect("/my-list/<id>")

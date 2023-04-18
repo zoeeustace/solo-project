@@ -6,7 +6,14 @@
     <br>
     <p>{{city.country.name}}</p>
     <p>Visited: {{city.visited}}</p>
+    {% for sight in sights %}
+      {% if city.id == city.id %}
+        <li>Event: {{sight.event}}</li>
+        <li>Review: {{sight.review}}</li>
+      {% endif %}
+    {% endfor %}
     <p><a href="/my-list/{{city.id}}/edit">Edit</a></p>
+    <p><a href="/my-list/{{city.id}}/sights/edit">Add Sights</a></p>
   </div>
 
 {% endblock content %}

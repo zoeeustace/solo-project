@@ -29,9 +29,10 @@ def select(id):
     sight = None
     sql = "SELECT * FROM sights WHERE id = %s"
     values = [id]
-    result = run_sql(sql, values)[0]
+    results = run_sql(sql, values)
 
-    if result is not None:
+    if results:
+        result = results[0]
         city = city_repository.select(result['city_id'])
         sight = Sight(result['event'], result['review'], city, result['id'] )
     return sight
