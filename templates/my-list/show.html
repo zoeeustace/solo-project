@@ -9,8 +9,8 @@
     <p><a href="/my-list/{{city.id}}/edit">Edit</a></p>
         {% for sight in all_sights %}
             <div class="sights">
-                Event: {{ sight.event }}
-                Review: {{ sight.review }}
+                Event: {{ city.sight.event }}
+                Review: {{ city.sight.review }}
             </div>
             <div class="buttons">
                 <form class="delete-form" action="/my-list/{{ sight.id }}/delete-sight" method="POST">

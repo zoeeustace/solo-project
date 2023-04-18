@@ -14,7 +14,18 @@
                 <input type="text" id="review" name="review" placeholder="Review"></input>
             </div>
             
-        
+            <div>
+                <label for="city">City:</label>
+                <select id="city" name="city_id">
+                  {% for city in all_cities %}
+                    <option value="{{city.id}}"
+                      {% if sight.city.id == city.id %} selected="selected"{% endif %}>
+                      {{ city.name }}
+                    </option>
+                  {% endfor %}
+                </select>
+              </div>
+
             <button type="submit">Add Destination</button>
         
         </form>

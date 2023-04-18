@@ -101,7 +101,12 @@ def create_city():
 @cities_blueprint.route("/my-list/<id>")
 def show_city(id):
     city=city_repository.select(id)
-    return render_template("my-list/show.html", city=city)
+    sights = sight_repository.select_all()
+    filtered_sights = []
+    for sight in sights:
+        if sight.city.id == city.id:
+            filtered_sights.append(sight)
+    return render_template("my-list/show.html", city=city, sights=sights)
 
 # # SHOW
 # # GET /my-list/<id>/visited
@@ -167,12 +172,7 @@ def create_sight():
     city = city_repository.select(city_id)
     sight=Sight(event, review, city)
     all_sights = sight_repository.select_all()
-    found = False
-    for sightElement in all_sights:
-        if sightElement.event == sight.event:
-            found = True
-    if found == False:
-        sight_repository.save(sight)
+    sight_repository.save(sight)
     return redirect("/my-list")
 
 # # EDIT
