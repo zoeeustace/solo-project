@@ -2,11 +2,20 @@
 {% block content %}
     
 <div>
-    <p>{{city.name}}</p>
-    <br>
-    <p>{{city.country.name}}</p>
-    <p>Visited: {{city.visited}}</p>
-    <p><a href="/my-list/{{city.id}}/edit">Edit</a></p>
+  <div class="visit-full-item">
+    <div class="city-name">
+      <p>{{city.name}}</p>
+    </div>
+    <div class="country-name">
+      <p>{{city.country.name}}</p>
+    </div>
+    <div class="visited">
+      <p>Visited: {{city.visited}}</p>
+    </div>
+    <form class="edit-form" action="/my-list/{{city.id}}/edit">
+        <button class="edit-button">
+          <i class="fa-solid fa-pen-to-square" style="color: #ec4590;"></i>
+  </div>
         {% for sight in all_sights %}
             <div class="sights">
                 Event: {{ city.sight.event }}
@@ -21,7 +30,7 @@
                 <p><a href="/my-list/{{sight.id}}/edit">Edit</a></p>
             </div>
         {% endfor %}
-    <p><a href="/my-list/new/sight">Add Sights</a></p>
+
 </div>
 
 {% endblock content %}

@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="{{ url_for('static',filename='css/style.css') }}">
   <link rel="stylesheet" href="{{ url_for('static',filename='css/forms.css') }}">
   <link rel="stylesheet" href="{{ url_for('static',filename='css/buttons.css') }}">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" crossorigin="anonymous">
+  <script src="https://kit.fontawesome.com/a72a13a610.js" crossorigin="anonymous"></script>
   <title>My Travel Bucket List</title>
 </head>
 <body>
@@ -24,6 +24,9 @@
   </header>
   <div class="container">
     {% block content %}
+    <div>
+      <img src="static/imgs/passport_stamps.jpeg" alt="plane around globe">
+    </div>
     {% endblock %}
   </div>
   </main>

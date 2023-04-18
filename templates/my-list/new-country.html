@@ -2,15 +2,16 @@
 
 {% block content %}
         <form action="/my-list" method="post">
-            <div>
+            <div class="country-button">
             <label for="country">Country:</label>
             <input type="text" id="country" name="country_id" placeholder="Country" required>
-            </div>
 
             <button type="submit">Add Country</button>
+            </div>
         </form>
 
         {% for country in all_countries %}
+        <div class="countries-list">    
             <div class="countries">
                 {{ country.name }}
             </div>
@@ -20,8 +21,11 @@
                         <i class="fa fa-close fa-1x" style="color: red" aria-hidden="true"></i>
                     </button>
                 </form>
-                <p><a href="/my-list/{{country.id}}/edit-country">Edit</a></p>
+                <form class="edit-form" action="/my-list/{{country.id}}/edit-country">
+                    <button class="edit-button">
+                      <i class="fa-regular fa-pen-to-square"></i>
             </div>
+        </div>
         {% endfor %}
 
   {% endblock %}
