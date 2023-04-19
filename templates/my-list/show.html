@@ -1,37 +1,37 @@
 {% extends 'base.html' %}
-{% block content %}
+<div class="container">
+  {% block content %}
     
-<div>
-  <div class="visit-full-item">
-    <div class="city-name">
-      <p>{{city.name}}</p>
-    </div>
-    <div class="country-name">
-      <p>{{city.country.name}}</p>
-    </div>
-    <div class="visited">
-      <p>Visited: {{city.visited}}</p>
-    </div>
-    <form class="edit-form" action="/my-list/{{city.id}}/edit">
+  <div>
+    <div class="visit-full-item">
+      <h3 class="city-name">{{city.name}}</h3>
+      <div class="country-name">{{city.country.name}}</div>
+      <div class="visited">Visited: {{city.visited}}</div>
+      <form class="edit-form" action="/my-list/{{city.id}}/edit">
         <button class="edit-button">
           <i class="fa-solid fa-pen-to-square" style="color: #ec4590;"></i>
-  </div>
-        {% for sight in all_sights %}
-            <div class="sights">
-                Event: {{ city.sight.event }}
-                Review: {{ city.sight.review }}
-            </div>
+      </div>
+        {% for sight in sights %}
+          <div class="sights-show">
+            <div class="sights-events">Event: {{ sight.event }}</div>
+            <div class="sights-review">Review: {{ sight.review }}</div>
+          </div>
             <div class="buttons">
                 <form class="delete-form" action="/my-list/{{ sight.id }}/delete-sight" method="POST">
                     <button class="trash-button">
-                        <i class="fa fa-close fa-1x" style="color: red" aria-hidden="true"></i>
+                      <i class="fa-solid fa-trash 2x" style="color: grey" aria-hidden="true"></i>
                     </button>
                 </form>
-                <p><a href="/my-list/{{sight.id}}/edit">Edit</a></p>
+                <form class="edit-sight" action="/my-list/<id>/sights/edit">
+                  <button class="edit-button">
+                    <i class="fa-solid fa-pen-to-square" style="color: #ec4590;"></i>
             </div>
         {% endfor %}
+        <form class="add-sight" action="/my-list/new/sight">
+          <button class="add-sight">
+            <i class="fa-solid fa-plus" style="color: #ec4590;"></i>
+    </div>
 
+  {% endblock content %}
 </div>
-
-{% endblock content %}
 

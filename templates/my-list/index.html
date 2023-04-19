@@ -1,14 +1,17 @@
 {% extends "base.html" %}
 {% block content %}
 
-    
+<div class="list-card-container">
     {% for city in all_cities %}
-        <div class="city">
-            <div class="content">
-                {{ city.country.name }}
-                <div class="city">
+        <div class="card">
+                <div class="travel-card-header">
+                    <h3 class="country-name">{{ city.country.name }}</h3>
+                </div>
+                    <div class="city-name">
                     <a href="/my-list/{{ city.id }}">{{ city.name }}</a>
                 </div>
+
+                <hr />
                 <div class="visited">
                     {% if city.visited %}
                         Visited:
@@ -18,14 +21,15 @@
                         <i class="fa-solid fa-xmark fa-1x"></i>
                     {% endif %}
                 </div>
+                <hr />
                 <div class="buttons">
                     <form class="delete-form" action="/my-list/{{ city.id }}/delete" method="POST">
                         <button class="trash-button">
                             <i class="fa-solid fa-trash 2x" style="color: grey" aria-hidden="true"></i>
                         </button>
                     </form>
-                </div>
             </div>
-        </div>
     {% endfor %}
+    </div>
 {% endblock %}
+

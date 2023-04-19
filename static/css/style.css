@@ -18,6 +18,11 @@ body {
     margin: 10px;
 }
 
+.sights-show {
+    display: flex;
+    flex-direction: column;
+}
+
 .visit-full-item {
     display: flex;
     flex-direction: column;
@@ -82,3 +87,13 @@ body {
     margin-right: 0.3em;
   }
 
+.list-card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.click-through {
+    display: flex;
+    justify-content: center;
+}

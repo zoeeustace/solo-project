@@ -106,7 +106,7 @@ def show_city(id):
     for sight in sights:
         if sight.city.id == city.id:
             filtered_sights.append(sight)
-    return render_template("my-list/show.html", city=city, sights=sights)
+    return render_template("my-list/show.html", city=city, sights=filtered_sights)
 
 # # SHOW
 # # GET /my-list/<id>/visited
@@ -175,22 +175,29 @@ def create_sight():
     sight_repository.save(sight)
     return redirect(request.referrer)
 
-# # EDIT
-# # GET
-# @cities_blueprint.route("/my-list/<id>/sights/edit")
-# def edit_sight(id):
-#     sights=sight_repository.select(id)
-#     cities=city_repository.select_all
-#     return render_template("my-list/edit-sights.html", all_sights=sights, all_cities=cities)  
+# DELETE
+# DELETE (POST) /my-list/<id>/delete
+@cities_blueprint.route("/my-list/<id>/delete-sight", methods=["POST"])
+def delete_sight(id):
+    sight_repository.delete(id)
+    return redirect(request.referrer)
 
-# # UPDATE
-# # PUT (POST) /my-list/<id>
-# @cities_blueprint.route("/my-list/update/<id>",methods=["POST"])
-# def update_sight(id):
-#     event=request.form['event']
-#     review=request.form['review']
-#     city_id=request.form['city_id']
-#     city=city_repository.select(city_id)
-#     sight=Sight(event, review, city, id)
-#     city_repository.update(city)
-#     return redirect("/my-list/<id>")
+# EDIT
+# GET
+@cities_blueprint.route("/my-list/<id>/sights/edit")
+def edit_sight(id):
+    sights=sight_repository.select(id)
+    cities=city_repository.select_all
+    return render_template("my-list/edit-sights.html", all_sights=sights, all_cities=cities)  
+
+# UPDATE
+# PUT (POST) /my-list/<id>
+@cities_blueprint.route("/my-list/update/<id>",methods=["POST"])
+def update_sight(id):
+    event=request.form['event']
+    review=request.form['review']
+    city_id=request.form['city_id']
+    city=city_repository.select(city_id)
+    sight=Sight(event, review, city, id)
+    city_repository.update(city)
+    return redirect("/my-list/<id>")
